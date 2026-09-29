@@ -313,7 +313,10 @@ const KHODAMS = [
 ];
 const IMG = {player:'assets/pendekar.png', begal:'assets/begal-kala.png', gagak:'assets/gagak-ireng.png',
   siluman:'assets/siluman-rawa.png', ratu:'assets/ratu-rawa.png', senopati:'assets/senopati-kala.png'};
-const JIMG = {gebrakan:'assets/icon-gebrakan.png', semburan:'assets/icon-semburan.png'};
+const JIMG = {gebrakan:'assets/icon-gebrakan.png', kuda:'assets/icon-kuda.png', semburan:'assets/icon-semburan.png',
+  amukan:'assets/icon-amukan.png', gelombang:'assets/icon-gelombang.png', kabut:'assets/icon-kabut.png',
+  hantaman:'assets/icon-hantaman.png', tembok:'assets/icon-tembok.png', sabetan:'assets/icon-sabetan.png',
+  pusaran:'assets/icon-pusaran.png', jamuHp:'assets/icon-jamu-hp.png', jamuTd:'assets/icon-jamu-td.png'};
 
 // ================= STATE =================
 const $ = id => document.getElementById(id);
@@ -841,7 +844,7 @@ function render(){
   if(!P) return;
   ensureTarget();
   $('bLvN').textContent = P.level;
-  $('bPName').textContent = `${P.name} · 🪙${P.perak} · ${P.weapon.icon}${P.weapon.name}`;
+  $('bPName').textContent = `${P.name} · ${ELEMENTS[P.el].icon} ${ELEMENTS[P.el].name} · ${P.weapon.icon}${P.weapon.name}`;
   $('bHpI').style.width = Math.max(0, P.hp/P.maxhp*100)+'%';
   $('bHpT').textContent = P.hp+'/'+P.maxhp;
   $('bTdI').style.width = Math.max(0, P.td/P.maxtd*100)+'%';
@@ -883,8 +886,8 @@ function render(){
     b.innerHTML = `<span>${icon}</span><small>${label}</small>`;
     b.onclick = fn; bc.appendChild(b);
   };
-  mkc('🧪', 'Jamu HP ×'+P.jamuKuat, 'Jamu Kuat: heal 40% HP', ()=>useJamu('kuat'), busy||!P.alive||P.jamuKuat<=0);
-  mkc('🧪', 'Jamu TD ×'+P.jamuSegar, 'Jamu Segar: +30 TD', ()=>useJamu('segar'), busy||!P.alive||P.jamuSegar<=0);
+  mkc(`<img src="${JIMG.jamuHp}" style="width:40px;height:40px;object-fit:contain;pointer-events:none">`, 'Jamu HP ×'+P.jamuKuat, 'Jamu Kuat: heal 40% HP', ()=>useJamu('kuat'), busy||!P.alive||P.jamuKuat<=0);
+  mkc(`<img src="${JIMG.jamuTd}" style="width:40px;height:40px;object-fit:contain;pointer-events:none">`, 'Jamu TD ×'+P.jamuSegar, 'Jamu Segar: +30 TD', ()=>useJamu('segar'), busy||!P.alive||P.jamuSegar<=0);
   const k = P.khodam, s = k.special;
   mkc(k.icon, 'Khodam'+(P.khodamCd>0?' '+P.khodamCd:''), `⚡ ${s.name}: ${s.desc} (CD ${s.cd})`, khodamSpecial, busy||!P.alive||P.khodamCd>0);
 }
@@ -974,8 +977,8 @@ function pageWarung(){
   <p style="color:#cbbf9a"><i>"Monggo, pendekar! Jamu anget siap sedia~"</i> — Mbok Darmi</p>
   <p>🪙 Perakmu: <b>${SV.perak}</b> · ⚡ Tenaga: <b>${SV.tenaga}/${TENAGA_MAX}</b></p>
   <div class="cards">
-    <div class="pick"><div class="ic">🧪</div><div class="nm">Jamu Kuat</div><div class="ds">Heal 40% HP di battle<br>Punya: ${SV.jamuKuat}<br><button class="jbtn" onclick="buyJamu('kuat')"><b>50 🪙</b> Beli</button></div></div>
-    <div class="pick"><div class="ic">🧪</div><div class="nm">Jamu Segar</div><div class="ds">+30 TD di battle<br>Punya: ${SV.jamuSegar}<br><button class="jbtn" onclick="buyJamu('segar')"><b>40 🪙</b> Beli</button></div></div>
+    <div class="pick"><div class="ic"><img src="assets/icon-jamu-hp.png" style="width:44px;height:44px"></div><div class="nm">Jamu Kuat</div><div class="ds">Heal 40% HP di battle<br>Punya: ${SV.jamuKuat}<br><button class="jbtn" onclick="buyJamu('kuat')"><b>50 🪙</b> Beli</button></div></div>
+    <div class="pick"><div class="ic"><img src="assets/icon-jamu-td.png" style="width:44px;height:44px"></div><div class="nm">Jamu Segar</div><div class="ds">+30 TD di battle<br>Punya: ${SV.jamuSegar}<br><button class="jbtn" onclick="buyJamu('segar')"><b>40 🪙</b> Beli</button></div></div>
     <div class="pick"><div class="ic">🍛</div><div class="nm">Nasi Liwet</div><div class="ds">Traktir Mbok Darmi<br>+5 ⚡ Tenaga<br><button class="jbtn" onclick="traktir()"><b>20 🪙</b></button></div></div>
   </div>`);
 }
