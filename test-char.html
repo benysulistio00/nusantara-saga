@@ -1,0 +1,22 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>REPRO char</title>
+<style>
+#battle{position:fixed;inset:0;display:flex;flex-direction:column;background:#0d0a18;overflow:hidden}
+#bBg{position:absolute;inset:0;background:url('assets/bg-hutan.jpg') center/cover no-repeat}
+#bScene{position:relative;z-index:4;flex:1;min-height:0;border:3px solid red}
+.bspot{position:absolute;bottom:3%;display:flex;flex-direction:column;align-items:center;z-index:5;border:2px solid lime}
+#bP{left:5%}
+.bfoe{right:5%}
+.bchar{transition:transform .28s ease;line-height:0}
+.bchar img{max-height:42vh;max-width:290px;width:auto;height:auto;filter:drop-shadow(0 12px 16px rgba(0,0,0,.7))}
+.char{animation:bob 2.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.bname{margin-top:6px;color:#fff;font-weight:bold}
+</style></head>
+<body>
+<div id="battle"><div id="bBg"></div>
+<div id="bScene">
+<div class="bspot" id="bP"><div class="bchar"><img class="char" src="assets/pendekar.png" alt="P"></div><div class="bname">Lv.1 Pemain</div></div>
+<div class="bspot bfoe"><div class="bchar"><img class="char" src="assets/begal-kala.png" alt="M"></div><div class="bname">Lv.2 Begal Kala</div></div>
+</div></div>
+</body></html>
