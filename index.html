@@ -261,6 +261,15 @@
 <div id="endOverlay"><div class="box" id="endBox"></div></div>
 
 <script>
+// Ketahanan aset: kalau ada gambar gagal load (koneksi kepotong), coba lagi 1x otomatis.
+document.addEventListener('error', function(ev){
+  const t = ev.target;
+  if(t && t.tagName==='IMG' && !t.dataset.retried){
+    t.dataset.retried = '1';
+    const src = t.getAttribute('src');
+    setTimeout(()=>{ t.src = src + (src.indexOf('?')>=0?'&':'?') + 'r=' + Date.now(); }, 700);
+  }
+}, true);
 // ================= DATA =================
 const ELEMENTS = {
   geni:    {name:'Geni',    icon:'🔥', counter:'bayu',    desc:'Api melahap angin'},
